@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/example1/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="example1" targetNamespace="http://www.example.org/example1/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/example1/">
+      <xsd:element name="Greet">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Name" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GreetResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Greet" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Sum">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="number1" type="xsd:int"></xsd:element>
+      			<xsd:element name="number2" type="xsd:int"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SumResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="result" type="xsd:int"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GreetRequest">
+    <wsdl:part element="tns:Greet" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GreetResponse">
+    <wsdl:part element="tns:GreetResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="SumRequest">
+  	<wsdl:part name="parameters" element="tns:Sum"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SumResponse">
+  	<wsdl:part name="parameters" element="tns:SumResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="example1">
+    <wsdl:operation name="Greet">
+      <wsdl:input message="tns:GreetRequest"/>
+      <wsdl:output message="tns:GreetResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Sum">
+    	<wsdl:input message="tns:SumRequest"></wsdl:input>
+    	<wsdl:output message="tns:SumResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="example1SOAP" type="tns:example1">
+
+  	<soap:binding style="document"
+  		transport="http://schemas.xmlsoap.org/soap/http" />
+  	<wsdl:operation name="Greet">
+
+  		<soap:operation
+  			soapAction="http://www.example.org/example1/Greet" />
+  		<wsdl:input>
+
+  			<soap:body use="literal" />
+  		</wsdl:input>
+  		<wsdl:output>
+
+  			<soap:body use="literal" />
+  		</wsdl:output>
+  	</wsdl:operation>
+  	<wsdl:operation name="Sum">
+  		<soap:operation
+  			soapAction="http://www.example.org/example1/Sum" />
+  		<wsdl:input>
+  			<soap:body use="literal" />
+  		</wsdl:input>
+  		<wsdl:output>
+  			<soap:body use="literal" />
+  		</wsdl:output>
+  	</wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="example1">
+    <wsdl:port binding="tns:example1SOAP" name="example1SOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
